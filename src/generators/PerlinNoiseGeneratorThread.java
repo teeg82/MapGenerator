@@ -24,7 +24,7 @@ public class PerlinNoiseGeneratorThread extends AbstractMapGenerator {
 			mapPanel.drawContinent(continent);
 			mapPanel.repaint();
 		}
-		mapPanel.smoothSurface();
+//		mapPanel.smoothSurface();
 	}
 	
 	private double generateNoise(float x, float y){
