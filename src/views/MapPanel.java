@@ -53,7 +53,7 @@ public class MapPanel extends JPanel{
 			generatorThread = new PerlinNoiseGeneratorThread(continentCount, waterPercentage, this);
 //			generatorThread = new MultipassGeneratorThread(continentCount, waterPercentage, this);
 			//generatorThread = new ShapedGeneratorThread(continentCount, waterPercentage, this);
-			new Thread(generatorThread).start();			
+			new Thread(generatorThread).start();
 		}
 	}
 	

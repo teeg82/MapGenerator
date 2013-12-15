@@ -4,9 +4,9 @@ import helpers.IntegerFactor;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 import java.util.List;
 
+import support.MathHelper;
 import views.MapPanel;
 
 public abstract class AbstractMapGenerator implements Runnable {
@@ -48,7 +48,7 @@ public abstract class AbstractMapGenerator implements Runnable {
 		Integer maxLandArea = (int) (mapArea * (1-(waterPercentage / 100f)));
 		Integer maxContinentSize = maxLandArea / continentCount;
 		
-		List<IntegerFactor> factorPairs = calculateFactors(maxContinentSize, mapDimension);
+		List<IntegerFactor> factorPairs = MathHelper.calculateFactors(maxContinentSize, mapDimension);
 		if(factorPairs.size() > 0){
 			IntegerFactor rectangleArea = factorPairs.get((int) (Math.random() * factorPairs.size()));
 			if(rectangleArea.getNumber1() < rectangleArea.getNumber2()){
@@ -60,20 +60,5 @@ public abstract class AbstractMapGenerator implements Runnable {
 			return new Rectangle(mapDimension.height, mapDimension.width);
 		}
 		
-	}
-	
-	protected List<IntegerFactor> calculateFactors(int value, Dimension bounds){
-		int limit = (int)Math.ceil(Math.sqrt(value));
-		List<IntegerFactor> factorPairs = new ArrayList<IntegerFactor>(1);
-		
-		for(int loopIndex = 1; loopIndex <= limit; loopIndex++){
-			if(value % loopIndex == 0){
-				int factor = value / loopIndex;
-				if(loopIndex <= bounds.height && loopIndex <= bounds.width && factor <= bounds.height && factor <= bounds.width)
-					factorPairs.add(new IntegerFactor(loopIndex, value / loopIndex));
-			}
-		}
-		
-		return factorPairs;
 	}
 }

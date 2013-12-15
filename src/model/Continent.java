@@ -70,6 +70,8 @@ public class Continent {
 			Integer xPos = rand.nextInt(width);
 			Integer yPos = rand.nextInt(height);
 			
+			System.out.println("Inserting point at " + xPos + ", " + yPos);
+			
 			tree.insert(xPos, yPos);
 		}
 		
@@ -95,6 +97,7 @@ public class Continent {
 			AxisAlignedBoundingBox aabb = quadNode.getBoundingBox();
 			System.out.println("Creating rectangle at width " + aabb.getWidth() + " and height " + aabb.getHeight());
 			Rectangle rect = new Rectangle((int)aabb.getUpperLeft().getX(), (int)aabb.getUpperLeft().getY(), (int)aabb.getWidth(), (int)aabb.getHeight());
+			System.out.println("Creating rectonagle: " + rect.toString());
 			rectangles.add(rect);
 		}else{
 			QuadNode<XYPoint> northEast = quadNode.getNorthEast();
@@ -114,41 +117,42 @@ public class Continent {
 		PerlinNoiseGenerator perlinNoise = new PerlinNoiseGenerator();
 		float[][] continent = new float[height][width];
 		List<Rectangle> continentParts = createContinentParts(width, height, MAX_CONTINENT_PARTS);
+		System.out.println("Calculated " + continentParts.size() + " continent parts.");
 		
 		float rectCounter = 1;
 		for(Rectangle rect : continentParts){
 			for(int y = 0; y < rect.height; y++){
 //				for(int x = 0; x < 21; x++){
 				for(int x = 0; x < rect.width; x++){
-					
-//					float value = perlinNoise.tileableTurbulence2(x + 0.1f, y + 0.1f, 10, 10, 1);
-//					float value = perlinNoise.noise2(x + 0.1f, y + 0.1f);
-//					float value = Math.abs(perlinNoise.noise2(x + 0.1f, y + 0.1f)) + 
-//								  Math.abs((2/15f) * perlinNoise.noise2(2*(x+0.1f), 2*(y+ 0.1f))) + 
-//							      Math.abs((4/15f) * perlinNoise.noise2(4*(x+0.1f), 4*(y+ 0.1f))) + 
-//							      Math.abs((8/15f) * perlinNoise.noise2(8*(x+0.1f), 8*(y+ 0.1f)));
-					float value = 0;
-					for(float noiseIndex = 0; noiseIndex < 24; noiseIndex++){
-						float modifier = (1/(noiseIndex+1));
-//						if(noiseIndex != 0){
-//							modifier = (1/(noiseIndex+1));
-//						}
-						float appendingValue = modifier * Math.abs(perlinNoise.noise2((noiseIndex+1) * (x + 0.1f), (noiseIndex+1) * (y + 0.1f)));
-//						System.out.println("Appending value: " + appendingValue);
-						value += appendingValue;
-					}
-//					Double value = this.generatePerlinNoise2D(x + 0.1f, y + 0.1f);
-//					double value = perlinNoise.improvedNoise(x + 0.9, y + 0.9, x + y + 0.1);
-//					float value = perlinNoise.tileableNoise2(x + 0.1f, y + 0.1f, 20f, 20f);
-					if(value > 1) value = 1;
-					
-					System.out.println("Value at point " + x + "," + y + " is " + value);
-					
-					continent[y][x] += (value * (1 / (rectCounter * 2)));
-//					MapTile mapTile = mapPanel.getTile(x, y);
-//					mapTile.addPerlinHeight((float)value);
-//					mapTile.setPerlinHeight((float)value);
-					
+//						float value = perlinNoise.tileableTurbulence2(x + 0.1f, y + 0.1f, 10, 10, 1);
+//						float value = perlinNoise.noise2(x + 0.1f, y + 0.1f);
+//						float value = Math.abs(perlinNoise.noise2(x + 0.1f, y + 0.1f)) + 
+//									  Math.abs((2/15f) * perlinNoise.noise2(2*(x+0.1f), 2*(y+ 0.1f))) + 
+//								      Math.abs((4/15f) * perlinNoise.noise2(4*(x+0.1f), 4*(y+ 0.1f))) + 
+//								      Math.abs((8/15f) * perlinNoise.noise2(8*(x+0.1f), 8*(y+ 0.1f)));
+						float value = 0;
+						for(float noiseIndex = 0; noiseIndex < 24; noiseIndex++){
+							float modifier = (1f/(noiseIndex + 1));
+//							if(noiseIndex != 0){
+//								modifier = (1/(noiseIndex+1));
+//							}
+							float noise = Math.abs(perlinNoise.noise2((noiseIndex+1) * (x + 0.1f), (noiseIndex+1) * (y + 0.1f)));
+							float appendingValue = modifier * noise;
+//							System.out.println("Appending value: " + appendingValue);
+							value += appendingValue;
+							System.out.println("Nosie: " + noise + " with modifier " + modifier + ", final value: " + value);
+						}
+//						Double value = this.generatePerlinNoise2D(x + 0.1f, y + 0.1f);
+//						double value = perlinNoise.improvedNoise(x + 0.9, y + 0.9, x + y + 0.1);
+//						float value = perlinNoise.tileableNoise2(x + 0.1f, y + 0.1f, 20f, 20f);
+						if(value > 1) value = 0.99f;
+ 
+						continent[rect.y + y][rect.x + x] += (value * (1 / (rectCounter * 2)));
+						
+						System.out.println("Value at point " + (rect.x + x) + "," + (rect.y + y) + " is " + continent[rect.y + y][rect.x + x]);
+//						MapTile mapTile = mapPanel.getTile(x, y);
+//						mapTile.addPerlinHeight((float)value);
+//						mapTile.setPerlinHeight((float)value);
 				}
 			}
 			rectCounter++;
@@ -160,5 +164,4 @@ public class Continent {
 //		continent = MapHelper.generateContinentFromNoise(continent, continentSize);
 		
 	}
-
 }

@@ -189,7 +189,8 @@ public class Map implements Serializable{
 	}
 
 	public void drawContinent(Continent continent) {
-		Point randomPoint = new Point((int)(Math.random() * this.mapSize.width), (int)(Math.random() * this.mapSize.height));
+//		Point randomPoint = new Point((int)(Math.random() * this.mapSize.width), (int)(Math.random() * this.mapSize.height));
+		Point randomPoint = new Point(0,0);
 		float[][] continentData = continent.getContinent();
 		for(int y = 0; y < continentData.length; y++){
 			for(int x = 0; x < continentData[y].length; x++){

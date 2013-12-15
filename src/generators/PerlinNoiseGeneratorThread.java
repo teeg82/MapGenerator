@@ -1,11 +1,8 @@
 package generators;
 
-import helpers.MapHelper;
-
 import java.awt.Rectangle;
 
 import model.Continent;
-
 import views.MapPanel;
 
 public class PerlinNoiseGeneratorThread extends AbstractMapGenerator {
@@ -18,9 +15,9 @@ public class PerlinNoiseGeneratorThread extends AbstractMapGenerator {
 	public void handleRun() {
 		for(int index = 0; index < super.continentCount; index++){
 //			Dimension mapSize = mapPanel.getMap().getMapSize();
-			Rectangle continentSize = super.generateRandomContinentRectangle();
+			Rectangle continentRectangle = super.generateRandomContinentRectangle();
 	//		for(int y = 0; y < 21; y++){
-			Continent continent = Continent.generateContinent(continentSize.height, continentSize.width, mapPanel.getMap());
+			Continent continent = Continent.generateContinent(continentRectangle.height, continentRectangle.width, mapPanel.getMap());
 			mapPanel.drawContinent(continent);
 			mapPanel.repaint();
 		}

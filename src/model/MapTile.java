@@ -76,6 +76,7 @@ public class MapTile implements Serializable{
 //		float shiftedHeight = height;
 		this.tileColour = calculateHeightColour(Math.abs(height));
 		this.height = Math.round(height);
+		System.out.println("Setting tile colour to " + this.tileColour + " and height to " + this.height);
 	}
 	
 	public Color calculateHeightColour(float height){
