@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.util.Random;
 
 import loggers.Logger;
-import views.MainWindow;
 import views.MapPanel;
 
 public class GeneratorThread extends AbstractMapGenerator {
@@ -22,8 +21,8 @@ public class GeneratorThread extends AbstractMapGenerator {
 		Point startPosition = new Point();
 		Logger.debug("Number of continents: " + continentCount + ", with water percentage: " + waterPercentage + ". Max Continent Radius: " + maxContinentRadius + ", and each pass should run " + (100 - waterPercentage) + " times.");
 		for(int continentIndex = 0; continentIndex < continentCount * 3; continentIndex++){ // for each continent...
-			int xPos = rand.nextInt(MainWindow.MAP_SIZE.width);
-			int yPos = rand.nextInt(MainWindow.MAP_SIZE.height);
+			int xPos = rand.nextInt(MapPanel.MAP_SIZE.width);
+			int yPos = rand.nextInt(MapPanel.MAP_SIZE.height);
 			startPosition.setLocation(xPos, yPos);
 
 			int continentPasses = rand.nextInt(20 * maxContinentRadius) + 20; // between 1 and 20 passes
@@ -36,21 +35,21 @@ public class GeneratorThread extends AbstractMapGenerator {
 					
 					mapPanel.raiseTile(cursorPosition);
 					xPos += randomContinent.nextBoolean() ? randomContinent.nextInt(2) : randomContinent.nextInt(2) * -1;
-					if(xPos >= MainWindow.MAP_SIZE.width){
+					if(xPos >= MapPanel.MAP_SIZE.width){
 						Logger.debug("X position beyond right-most limit. Wrapping to left side.");
 						xPos = 0;
 					}else if(xPos < 0){
 						Logger.debug("X position beyond left-most limit. Wrapping to right side.");
-						xPos = MainWindow.MAP_SIZE.width - 1;
+						xPos = MapPanel.MAP_SIZE.width - 1;
 					}
 					
 					if((xPos < startPosition.x) && (startPosition.x - xPos > maxContinentRadius)){
-						int adjustedXPosition = MainWindow.MAP_SIZE.width + xPos;
+						int adjustedXPosition = MapPanel.MAP_SIZE.width + xPos;
 						if(adjustedXPosition - startPosition.x > maxContinentRadius){
 							xPos = startPosition.x;
 						}
 					}else if((xPos > startPosition.x) && (xPos - startPosition.x > maxContinentRadius)){
-						int adjustedXPosition = MainWindow.MAP_SIZE.width + startPosition.x;
+						int adjustedXPosition = MapPanel.MAP_SIZE.width + startPosition.x;
 						if(adjustedXPosition - startPosition.x > maxContinentRadius){
 							xPos = startPosition.x;
 						}
@@ -86,8 +85,8 @@ public class GeneratorThread extends AbstractMapGenerator {
 					
 					if(yPos < 0 ){
 						yPos = 0;
-					}else if(yPos >= MainWindow.MAP_SIZE.height){
-						yPos = MainWindow.MAP_SIZE.height -1;
+					}else if(yPos >= MapPanel.MAP_SIZE.height){
+						yPos = MapPanel.MAP_SIZE.height -1;
 					}
 					
 					if(Math.abs(yPos - startPosition.y) > maxContinentRadius ){

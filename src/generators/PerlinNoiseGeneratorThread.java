@@ -16,12 +16,13 @@ public class PerlinNoiseGeneratorThread extends AbstractMapGenerator {
 		for(int index = 0; index < super.continentCount; index++){
 //			Dimension mapSize = mapPanel.getMap().getMapSize();
 			Rectangle continentRectangle = super.generateRandomContinentRectangle();
-	//		for(int y = 0; y < 21; y++){
-			Continent continent = Continent.generateContinent(continentRectangle.height, continentRectangle.width, mapPanel.getMap());
+
+//			Continent continent = Continent.generateContinent(mapPanel.getMap().getMapSize().height, mapPanel.getMap().getMapSize().width, mapPanel.getMap());
+			Continent continent = Continent.generateContinent(continentRectangle, mapPanel.getMap());
 			mapPanel.drawContinent(continent);
 			mapPanel.repaint();
 		}
-//		mapPanel.smoothSurface();
+		mapPanel.smoothSurface();
 	}
 	
 	private double generateNoise(float x, float y){

@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import views.MainWindow;
+import views.MapPanel;
 
 public class Map implements Serializable{
 
@@ -57,7 +57,7 @@ public class Map implements Serializable{
 		int rowIndex = 0, columnIndex = 0;
 		for(List<MapTile> mapTileRow : mapTiles){
 			for(MapTile mapTile : mapTileRow){
-				mapTile.draw(g, columnIndex*MainWindow.PREFERRED_TILE_SIZE.width, rowIndex * MainWindow.PREFERRED_TILE_SIZE.height, MainWindow.PREFERRED_TILE_SIZE.width, MainWindow.PREFERRED_TILE_SIZE.height);
+				mapTile.draw(g, columnIndex*MapPanel.PREFERRED_TILE_SIZE.width + 1, rowIndex * MapPanel.PREFERRED_TILE_SIZE.height + 1, MapPanel.PREFERRED_TILE_SIZE.width, MapPanel.PREFERRED_TILE_SIZE.height);
 				columnIndex++;
 			}
 			columnIndex = 0;
@@ -179,23 +179,25 @@ public class Map implements Serializable{
 		if(y >= this.mapTiles.size()){
 			yPos = y - this.mapTiles.size();
 		}
-		List<MapTile> tileColumn = this.mapTiles.get(yPos);
+		List<MapTile> tileRow = this.mapTiles.get(yPos);
 		
 		int xPos = x;
-		if(x >= tileColumn.size()){
-			xPos = x - tileColumn.size();
+		if(x >= tileRow.size()){
+			xPos = x - tileRow.size();
 		}
-		return tileColumn.get(xPos);
+		return tileRow.get(xPos);
 	}
 
 	public void drawContinent(Continent continent) {
 //		Point randomPoint = new Point((int)(Math.random() * this.mapSize.width), (int)(Math.random() * this.mapSize.height));
-		Point randomPoint = new Point(0,0);
+//		Point randomPoint = new Point(0,0);
 		float[][] continentData = continent.getContinent();
 		for(int y = 0; y < continentData.length; y++){
 			for(int x = 0; x < continentData[y].length; x++){
-				MapTile mapTile = this.getTile(x + randomPoint.x, y + randomPoint.y);
+				MapTile mapTile = this.getTile(x + continent.getXPos(), y + continent.getYPos());
+//				MapTile mapTile = this.getTile(x + randomPoint.x, y + randomPoint.y);
 				mapTile.addPerlinHeight(continentData[y][x]);
+//				System.out.println(mapTile);
 			}
 		}
 		

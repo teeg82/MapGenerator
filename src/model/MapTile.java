@@ -5,16 +5,13 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.io.Serializable;
 
-import javax.swing.text.html.MinimalHTMLWriter;
-
-import loggers.Logger;
-
 public class MapTile implements Serializable{
 
 	private static final long serialVersionUID = -4630156937717836354L;
 
 	public static final int INITIAL_HEIGHT = 80;
-	public static final int TRANSITION_HEIGHT = 128;
+	public static final int TRANSITION_HEIGHT = 135;
+//	public static final int TRANSITION_HEIGHT = 145;
 	private static final int MAX_DEPTH = 0;
 	private static final int MAX_HEIGHT = 255;
 	
@@ -37,6 +34,7 @@ public class MapTile implements Serializable{
 	public int getHeight() {
 		return height;
 	}
+	
 	public void setHeight(int height) {
 		if(height > MAX_HEIGHT){
 			this.height = MAX_HEIGHT;
@@ -76,7 +74,7 @@ public class MapTile implements Serializable{
 //		float shiftedHeight = height;
 		this.tileColour = calculateHeightColour(Math.abs(height));
 		this.height = Math.round(height);
-		System.out.println("Setting tile colour to " + this.tileColour + " and height to " + this.height);
+//		System.out.println("Setting tile colour to " + this.tileColour + " and height to " + this.height);
 	}
 	
 	public Color calculateHeightColour(float height){
@@ -143,5 +141,13 @@ public class MapTile implements Serializable{
 	
 	public void lower(){
 		this.setHeight(this.height - 1);
+	}
+
+	public String getSummary() {
+		return (this.position.x + "," + this.position.y + "," + this.height + " - " + ("#" + String.format("%06x", this.tileColour.getRGB() & 0x00FFFFFF)));
+	}
+	
+	public String toString(){
+		return this.position.toString() + ", " + this.tileColour + ", height: " + this.height;
 	}
 }

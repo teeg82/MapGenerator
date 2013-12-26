@@ -6,7 +6,6 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import loggers.Logger;
-import views.MainWindow;
 import views.MapPanel;
 
 public class ShapedGeneratorThread extends AbstractMapGenerator{
@@ -24,8 +23,8 @@ public class ShapedGeneratorThread extends AbstractMapGenerator{
 		Point startPosition = new Point();
 		Logger.debug("Number of continents: " + continentCount + ", with water percentage: " + waterPercentage + ". Max Continent Radius: " + maxContinentRadius + ", and each pass should run " + (100 - waterPercentage) + " times.");
 		for(int continentIndex = 0; continentIndex < continentCount; continentIndex++){ // for each continent...
-			int xPos = rand.nextInt(MainWindow.MAP_SIZE.width);
-			int yPos = rand.nextInt(MainWindow.MAP_SIZE.height);
+			int xPos = rand.nextInt(MapPanel.MAP_SIZE.width);
+			int yPos = rand.nextInt(MapPanel.MAP_SIZE.height);
 			startPosition.setLocation(xPos, yPos);
 			cursorPosition.setLocation(xPos, yPos);
 			
@@ -35,15 +34,15 @@ public class ShapedGeneratorThread extends AbstractMapGenerator{
 			for(int vertexIndex = 0; vertexIndex < totalVerticies; vertexIndex++){
 				int xVertex = cursorPosition.x + rand.nextInt(maxContinentRadius) * (rand.nextBoolean() ? -1 : 1) + 1;
 				if(xVertex < 0){
-					xVertex = MainWindow.MAP_SIZE.width - xVertex;
-				}else if(xVertex > MainWindow.MAP_SIZE.width){
-					xVertex = xVertex - MainWindow.MAP_SIZE.width; 
+					xVertex = MapPanel.MAP_SIZE.width - xVertex;
+				}else if(xVertex > MapPanel.MAP_SIZE.width){
+					xVertex = xVertex - MapPanel.MAP_SIZE.width; 
 				}
 				int yVertex = cursorPosition.y + rand.nextInt(maxContinentRadius) * (rand.nextBoolean() ? -1 : 1) + 1;
 				if(yVertex < 0){
-					yVertex = MainWindow.MAP_SIZE.height - yVertex;
-				}else if(yVertex > MainWindow.MAP_SIZE.height){
-					yVertex = yVertex - MainWindow.MAP_SIZE.height; 
+					yVertex = MapPanel.MAP_SIZE.height - yVertex;
+				}else if(yVertex > MapPanel.MAP_SIZE.height){
+					yVertex = yVertex - MapPanel.MAP_SIZE.height; 
 				}
 				xPoints[vertexIndex] = xVertex;
 				yPoints[vertexIndex] = yVertex;

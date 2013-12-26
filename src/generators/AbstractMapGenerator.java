@@ -51,10 +51,12 @@ public abstract class AbstractMapGenerator implements Runnable {
 		List<IntegerFactor> factorPairs = MathHelper.calculateFactors(maxContinentSize, mapDimension);
 		if(factorPairs.size() > 0){
 			IntegerFactor rectangleArea = factorPairs.get((int) (Math.random() * factorPairs.size()));
+			int xPos = (int)Math.floor(Math.random() * mapDimension.width);
+			int yPos = (int)Math.floor(Math.random() * mapDimension.height);
 			if(rectangleArea.getNumber1() < rectangleArea.getNumber2()){
-				return new Rectangle(rectangleArea.getNumber1(), rectangleArea.getNumber1());
+				return new Rectangle(xPos, yPos, rectangleArea.getNumber1(), rectangleArea.getNumber1());
 			}else{
-				return new Rectangle(rectangleArea.getNumber2(), rectangleArea.getNumber2());
+				return new Rectangle(xPos, yPos, rectangleArea.getNumber2(), rectangleArea.getNumber2());
 			}
 		}else{
 			return new Rectangle(mapDimension.height, mapDimension.width);
