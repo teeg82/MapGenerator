@@ -35,7 +35,7 @@ public class ControlPanel extends JPanel implements InfoWindowController {
 	private JTextArea tileInfoArea;
 	
 	private static final Integer[] WATER_PERCENTAGE_LIST = {25, 30, 40, 50, 65, 70, 75, 80};
-	private static final Integer[] CONTINENT_COUNT_LIST = {1, 2, 3};
+	private static final Integer[] CONTINENT_COUNT_LIST = {3, 4, 5};
 	
 	public ControlPanel(JFrame frame, MapPanel mapPanel){
 		JPanel topControlPanel = createTopControlPanel(frame, mapPanel);
@@ -143,6 +143,8 @@ public class ControlPanel extends JPanel implements InfoWindowController {
 		JLabel continentsLabel = new JLabel("Continents");
 		ComboBoxModel continentsModel = new DefaultComboBoxModel(CONTINENT_COUNT_LIST);
 		final JComboBox continentsSelect = new JComboBox(continentsModel);
+		continentsSelect.setFocusable(false);
+		
 		JPanel continentsPanel = new JPanel();
 		continentsPanel.add(continentsLabel);
 		continentsPanel.add(continentsSelect);
@@ -150,7 +152,8 @@ public class ControlPanel extends JPanel implements InfoWindowController {
 		JLabel waterPercentageLabel = new JLabel("Water Percentage");
 		ComboBoxModel waterPercentageModel = new DefaultComboBoxModel(WATER_PERCENTAGE_LIST);
 		final JComboBox waterPercentageSelect = new JComboBox(waterPercentageModel);
-
+		waterPercentageSelect.setFocusable(false);
+		
 		JPanel waterPercentagePanel = new JPanel();
 		waterPercentagePanel.add(waterPercentageLabel);
 		waterPercentagePanel.add(waterPercentageSelect);

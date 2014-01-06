@@ -1,7 +1,10 @@
 package views;
 
 import java.awt.BorderLayout;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,7 +19,7 @@ public class MainWindow extends JPanel {
 	
 	public MainWindow(JFrame frame){
 		this.setLayout(new BorderLayout());
-		MapPanel mapPanel = createMapPanel();
+		final MapPanel mapPanel = createMapPanel();
 		ControlPanel controlPanel = createControlPanel(frame);
 		this.add(mapPanel, BorderLayout.WEST);
 		this.add(controlPanel, BorderLayout.EAST);
@@ -25,6 +28,15 @@ public class MainWindow extends JPanel {
 		
 		mapPanel.addMouseListener(mapPanelMouseListener);
 		mapPanel.addMouseMotionListener(mapPanelMouseListener);
+		
+        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        manager.addKeyEventDispatcher(new KeyEventDispatcher(){
+		@Override
+		public boolean dispatchKeyEvent(KeyEvent keyEvent) {
+			mapPanel.handleKeyEvent(keyEvent);
+			return false;
+		}
+	});
 		
 //		mapPanel.repaint();
 	}

@@ -1,17 +1,23 @@
 package views;
 
 import generators.AbstractMapGenerator;
-import generators.PerlinNoiseGeneratorThread;
+import generators.RadialPerlinNoiseGeneratorThread;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.swing.AbstractAction;
+import javax.swing.InputMap;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 import loggers.Logger;
 import model.Continent;
@@ -31,15 +37,18 @@ public class MapPanel extends JPanel{
 	private Map map;
 	private AbstractMapGenerator generatorThread = null;
 	
+	private int viewportXPos = 0;
+	private int viewportYPos = 0;
+	
 	public MapPanel(){
 		this.map = new Map(MapPanel.MAP_SIZE);
 		this.setPreferredSize(PREFERRED_PANEL_SIZE);
-		this.setBackground(Color.pink);
+		this.setBackground(Color.gray);
 	}
 	
 	public void paint(Graphics g){
 		super.paint(g);
-		map.draw(g);
+		map.draw(g, viewportXPos, viewportYPos);
 	}
 
 	/**
@@ -51,7 +60,8 @@ public class MapPanel extends JPanel{
 	public void generateMap(int continentCount, int waterPercentage) {
 		if(generatorThread != null){
 			if(!generatorThread.started()){
-				generatorThread = new PerlinNoiseGeneratorThread(continentCount, waterPercentage, this);
+//				generatorThread = new PerlinNoiseGeneratorThread(continentCount, waterPercentage, this);
+				generatorThread = new RadialPerlinNoiseGeneratorThread(continentCount, waterPercentage, this);
 //				generatorThread = new MultipassGeneratorThread(continentCount, waterPercentage, this);
 				//generatorThread = new ShapedGeneratorThread(continentCount, waterPercentage, this);
 				new Thread(generatorThread).start();
@@ -59,7 +69,8 @@ public class MapPanel extends JPanel{
 				Logger.debug("Generator thread is still running.");
 			}
 		}else{
-			generatorThread = new PerlinNoiseGeneratorThread(continentCount, waterPercentage, this);
+			generatorThread = new RadialPerlinNoiseGeneratorThread(continentCount, waterPercentage, this);
+//			generatorThread = new PerlinNoiseGeneratorThread(continentCount, waterPercentage, this);
 //			generatorThread = new MultipassGeneratorThread(continentCount, waterPercentage, this);
 			//generatorThread = new ShapedGeneratorThread(continentCount, waterPercentage, this);
 			new Thread(generatorThread).start();
@@ -117,5 +128,31 @@ public class MapPanel extends JPanel{
 		int xPosition = (int)Math.floor(mousePosition.x / ((float)PREFERRED_TILE_SIZE.width + 1f));
 		int yPosition = (int)Math.floor(mousePosition.y / ((float)PREFERRED_TILE_SIZE.height + 1f));
 		return this.map.getTile(xPosition,yPosition);
+	}
+
+	public void handleKeyEvent(KeyEvent keyEvent) {
+		if(keyEvent.getKeyCode() == KeyEvent.VK_UP){
+			viewportYPos--;
+			if(viewportYPos < 0){
+				viewportYPos = MAP_SIZE.height-1;
+			}
+		}else if(keyEvent.getKeyCode() == KeyEvent.VK_DOWN){
+			viewportYPos++;
+			if(viewportYPos >= MAP_SIZE.height){
+				viewportYPos = 0;
+			}
+		}else if(keyEvent.getKeyCode() == KeyEvent.VK_LEFT){
+			viewportXPos--;
+			if(viewportXPos < 0){
+				viewportXPos = MAP_SIZE.width-1;
+			}
+		}else if(keyEvent.getKeyCode() == KeyEvent.VK_RIGHT){
+			viewportXPos++;
+			if(viewportXPos >= MAP_SIZE.width){
+				viewportXPos = 0;
+			}
+		}
+		System.out.println("Viewport X,Y: " + viewportXPos + ", " + viewportYPos);
+		this.repaint();
 	}
 }

@@ -19,7 +19,7 @@ public class Continent {
 	float[][] continent;
 	public static final int MAX_CONTINENT_PARTS = 10;
 	
-	protected Continent(float[][] continent, int xPos, int yPos) {
+	public Continent(float[][] continent, int xPos, int yPos) {
 		this.continent = continent;
 		this.xPos = xPos;
 		this.yPos = yPos;
