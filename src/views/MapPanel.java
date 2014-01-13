@@ -48,6 +48,8 @@ public class MapPanel extends JPanel{
 	
 	public void paint(Graphics g){
 		super.paint(g);
+		g.setColor(Color.blue);
+		g.fillRect(12, 0, 64, 64);
 		map.draw(g, viewportXPos, viewportYPos);
 	}
 

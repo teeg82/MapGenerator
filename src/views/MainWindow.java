@@ -33,7 +33,9 @@ public class MainWindow extends JPanel {
         manager.addKeyEventDispatcher(new KeyEventDispatcher(){
 		@Override
 		public boolean dispatchKeyEvent(KeyEvent keyEvent) {
-			mapPanel.handleKeyEvent(keyEvent);
+			if(keyEvent.getID() == KeyEvent.KEY_RELEASED){
+				mapPanel.handleKeyEvent(keyEvent);				
+			}
 			return false;
 		}
 	});

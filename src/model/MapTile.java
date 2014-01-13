@@ -142,6 +142,7 @@ public class MapTile implements Serializable{
 		}else{
 			g.setColor(this.tileColour);
 		}
+		System.out.println("Drawing tile to position: " + (position.x + xOffset) + ", " + (position.y + yOffset));
 		g.fillRect(position.x + xOffset, position.y + yOffset, width, height);
 	}
 
