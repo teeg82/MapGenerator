@@ -1,9 +1,14 @@
 package model;
 
 //Jesse Craig 2012
-import java.awt.geom.*;
 import java.awt.Shape;
-import java.util.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.TreeSet;
+import java.util.Vector;
 
 public class PointQuadTree<T extends java.awt.geom.Point2D> {
 

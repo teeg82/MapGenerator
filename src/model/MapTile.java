@@ -1,9 +1,12 @@
 package model;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.io.Serializable;
+
+import views.MapPanel;
 
 public class MapTile implements Serializable{
 
@@ -135,15 +138,39 @@ public class MapTile implements Serializable{
 		return tileColour;
 	}
 	
-	public void draw(Graphics g, int xOffset, int yOffset, int width, int height){
+	public void draw(Graphics g, int xOffset, int yOffset, int width, int height, Dimension mapSize){
 		//Logger.debug("Drawing a tile. Height is " + this.height + ", and position is (" + this.position.x + "," + this.position.y + ").");
 		if(this.position.equals(ZERO_ZERO_POINT)){
 			g.setColor(ZERO_ZERO_COLOUR);
 		}else{
 			g.setColor(this.tileColour);
 		}
+		
+		int calculatedXPosition = (position.x + xOffset);
+		if(calculatedXPosition > mapSize.width - 1){
+			calculatedXPosition = calculatedXPosition - mapSize.width;
+		}
+		
+		int calculatedYPosition = (position.y + yOffset);
+		if(calculatedYPosition > mapSize.height - 1){
+			calculatedYPosition = calculatedYPosition - mapSize.height;
+		}
+		
+//		int calculatedXOffset = (position.x + xOffset) * MapPanel.PREFERRED_TILE_SIZE.width;
+//		if(calculatedXOffset > (this.mapSize.width -1) * MapPanel.PREFERRED_TILE_SIZE.width){
+//			calculatedXOffset = ((this.mapSize.width -1) * MapPanel.PREFERRED_TILE_SIZE.width) - calculatedXOffset;
+//
+//		}
+		
+//		int calculatedYOffset = rowIndex * MapPanel.PREFERRED_TILE_SIZE.height + (yOffset * MapPanel.PREFERRED_TILE_SIZE.height);
+//		if(calculatedYOffset > (this.mapSize.height-1) * MapPanel.PREFERRED_TILE_SIZE.height){
+//			calculatedYOffset = ((this.mapSize.height-1) * MapPanel.PREFERRED_TILE_SIZE.height) - calculatedYOffset;
+//
+//		}
+		
 		System.out.println("Drawing tile to position: " + (position.x + xOffset) + ", " + (position.y + yOffset));
-		g.fillRect(position.x + xOffset, position.y + yOffset, width, height);
+//		g.fillRect(position.x + xOffset, position.y + yOffset, width, height);
+		g.fillRect((calculatedXPosition * MapPanel.PREFERRED_TILE_SIZE.width), (calculatedYPosition * MapPanel.PREFERRED_TILE_SIZE.height), width - 1, height - 1);
 	}
 
 	public void raise() {

@@ -57,19 +57,9 @@ public class Map implements Serializable{
 		int rowIndex = 0, columnIndex = 0;
 		for(List<MapTile> mapTileRow : mapTiles){
 			for(MapTile mapTile : mapTileRow){
-				int calculatedXOffset = (columnIndex + xOffset) * MapPanel.PREFERRED_TILE_SIZE.width;
-				if(calculatedXOffset > (this.mapSize.width -1) * MapPanel.PREFERRED_TILE_SIZE.width){
-					calculatedXOffset = calculatedXOffset - ((this.mapSize.width) * MapPanel.PREFERRED_TILE_SIZE.width);
-//					calculatedXOffset = calculatedXOffset - ((this.mapSize.width - 1) * MapPanel.PREFERRED_TILE_SIZE.width); 
-				}
-				
-				int calculatedYOffset = rowIndex * MapPanel.PREFERRED_TILE_SIZE.height + (yOffset * MapPanel.PREFERRED_TILE_SIZE.height);
-				if(calculatedYOffset > (this.mapSize.height-1) * MapPanel.PREFERRED_TILE_SIZE.height){
-					calculatedYOffset = calculatedYOffset - (this.mapSize.height * MapPanel.PREFERRED_TILE_SIZE.height); 
-				}
-				
 //				mapTile.draw(g, columnIndex*MapPanel.PREFERRED_TILE_SIZE.width + 1 + xOffset, rowIndex * MapPanel.PREFERRED_TILE_SIZE.height + 1 + yOffset, MapPanel.PREFERRED_TILE_SIZE.width, MapPanel.PREFERRED_TILE_SIZE.height);
-				mapTile.draw(g, calculatedXOffset + 1, calculatedYOffset + 1, MapPanel.PREFERRED_TILE_SIZE.width, MapPanel.PREFERRED_TILE_SIZE.height);
+//				mapTile.draw(g, calculatedXOffset + 1, calculatedYOffset + 1, MapPanel.PREFERRED_TILE_SIZE.width, MapPanel.PREFERRED_TILE_SIZE.height);
+				mapTile.draw(g, xOffset, yOffset, MapPanel.PREFERRED_TILE_SIZE.width, MapPanel.PREFERRED_TILE_SIZE.height, this.mapSize);
 				columnIndex++;
 			}
 			columnIndex = 0;

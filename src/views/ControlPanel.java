@@ -1,5 +1,7 @@
 package views;
 
+import interfaces.InfoWindowController;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -11,8 +13,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import interfaces.InfoWindowController;
 
 import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
