@@ -44,7 +44,8 @@ public class ControlPanel extends JPanel implements InfoWindowController {
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		this.setPreferredSize(new Dimension((int) (MainWindow.WINDOW_SIZE.width*0.25) - 67, 0));
+//		this.setPreferredSize(new Dimension((int) (MainWindow.WINDOW_SIZE.width*0.25) - 67, 0));
+		this.setPreferredSize(new Dimension(250, 0));
 		
 		this.add(topControlPanel);
 		this.add(middleInfoPanel);
@@ -139,6 +140,10 @@ public class ControlPanel extends JPanel implements InfoWindowController {
 		JPanel controlPanel = new JPanel();
 		controlPanel.setPreferredSize(new Dimension((int) (MainWindow.WINDOW_SIZE.width*0.26)-75, (int)(MainWindow.WINDOW_SIZE.height * 0.26)));
 		controlPanel.setBackground(Color.gray);
+		
+		JLabel mapSizeLabel = new JLabel("Map Size");
+		JLabel sizeWidth = new JLabel("Width");
+		JLabel sizeHeight = new JLabel("Height");
 		
 		JLabel continentsLabel = new JLabel("Continents");
 		ComboBoxModel continentsModel = new DefaultComboBoxModel(CONTINENT_COUNT_LIST);

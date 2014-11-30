@@ -168,7 +168,7 @@ public class MapTile implements Serializable{
 //
 //		}
 		
-		System.out.println("Drawing tile to position: " + (position.x + xOffset) + ", " + (position.y + yOffset));
+//		System.out.println("Drawing tile to position: " + (position.x + xOffset) + ", " + (position.y + yOffset));
 //		g.fillRect(position.x + xOffset, position.y + yOffset, width, height);
 		g.fillRect((calculatedXPosition * MapPanel.PREFERRED_TILE_SIZE.width), (calculatedYPosition * MapPanel.PREFERRED_TILE_SIZE.height), width - 1, height - 1);
 	}

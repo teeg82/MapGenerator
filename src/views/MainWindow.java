@@ -14,14 +14,14 @@ import listeners.MapPanelMouseListener;
 public class MainWindow extends JPanel {
 
 	private static final long serialVersionUID = -495349538993848194L;
-	public static final Rectangle WINDOW_SIZE = new Rectangle(0, 0, 1024, 792);
+	public static final Rectangle WINDOW_SIZE = new Rectangle(0, 0, 1600, 900);
 	private MapPanel mapPanel;
 	
 	public MainWindow(JFrame frame){
 		this.setLayout(new BorderLayout());
 		final MapPanel mapPanel = createMapPanel();
 		ControlPanel controlPanel = createControlPanel(frame);
-		this.add(mapPanel, BorderLayout.WEST);
+		this.add(mapPanel, BorderLayout.CENTER);
 		this.add(controlPanel, BorderLayout.EAST);
 		
 		MapPanelMouseListener mapPanelMouseListener = new MapPanelMouseListener(controlPanel, mapPanel);

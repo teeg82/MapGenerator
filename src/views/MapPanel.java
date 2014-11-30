@@ -37,15 +37,20 @@ public class MapPanel extends JPanel{
 	
 	public MapPanel(){
 		this.map = new Map(MapPanel.MAP_SIZE);
-		this.setPreferredSize(PREFERRED_PANEL_SIZE);
+//		this.setPreferredSize(PREFERRED_PANEL_SIZE);
 		this.setBackground(Color.gray);
 	}
 	
-	public void paint(Graphics g){
-		super.paint(g);
-		g.setColor(Color.blue);
-		g.fillRect(12, 0, 64, 64);
+	@Override
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+//		g.setColor(Color.blue);
+//		g.fillRect(12, 0, 64, 64);
 		map.draw(g, viewportXPos, viewportYPos);
+	}
+	
+	public Dimension getMapSize(){
+		return map.getMapSize();
 	}
 
 	/**
